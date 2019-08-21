@@ -1,0 +1,12 @@
+{
+    "name": "student/my-php",
+    "authors": [
+        {
+            "name": "luke",
+            "email": "weu.che0812@gmail.com"
+        }
+    ],
+    "require": {
+        "phpoffice/phpspreadsheet": "^1.8"
+    }
+}

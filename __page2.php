@@ -1,0 +1,11 @@
+<?php
+$page_name = 'page2';
+
+?>
+<?php include __DIR__. '/__html_header.php' ?>
+<?php include __DIR__. '/__navbar.php' ?>
+<div class="container">
+<h2>Page 2</h2>
+
+</div>
+<?php include __DIR__. '/__html_footer.php' ?>
