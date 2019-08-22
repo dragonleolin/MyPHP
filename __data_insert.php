@@ -11,6 +11,8 @@ $page_title = '新增資料';
 <div class="container">
     <div style="margin-top: 2rem;">
         <div class="row">
+        <div class="alert alert-primary" role="alert" id="info-bar" style="display:none"></div>
+
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
@@ -50,6 +52,8 @@ $page_title = '新增資料';
         </div>
     </div>
     <script>
+        let info_bar = document.querySelector('#info-bar');
+
         function checkForm(){
             //TODO: 檢查必要欄位，欄位值的格式
             //FormData是沒有外觀的表單資料
@@ -60,15 +64,22 @@ $page_title = '新增資料';
                 body: fd,
             })
                 .then(response=>{
-                    return response.text();
+                    return response.json();
                 })
-                .then(txt=>{
-                    alert(txt);
-                })
+                .then(json=>{
+                    console.log(json);
+                    info_bar.style.display = 'block';
+                    info_bar.innerHTML = json.info;
+                    if(json.success){
+                        info_bar_className = 'alert alert-success';
+                    }else{
+                        info_bar.className = 'alert alert-danger';
+                    }
+                });
             
             
-            return false;
-        }
+            return false; //表單不使用傳統的post送出
+        };
     </script>
 </div>
 <?php require __DIR__ . '/__html_footer.php' ?>

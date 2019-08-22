@@ -42,6 +42,16 @@ $stmt -> execute([
     $_POST['address'],
 ]);
 
-echo $stmt->rowCount();
+if($stmt->rowCount()==1){
+    $result['success'] = true;
+    $result['code'] = 200;
+    $result['info'] = '新增成功';
+}else{
+    $result['code'] = 420;
+    $result['info'] = '新增失敗';
+}
+
+
+echo json_encode($result, JSON_UNESCAPED_UNICODE);
 
 ?>
