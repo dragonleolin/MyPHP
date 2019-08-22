@@ -55,10 +55,14 @@ $stmt = $pdo->query($sql);
         for($i = $p_start; $i <= $p_end; $i++) : 
         if($i<1 or $i>$totalPage) continue;
           ?>
+        
         <li class="page-item"
         ><a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
         </li>
         <?php endfor; ?>
+        <?php 
+        
+        ?>
         <li class="page-item">
                 <a class="page-link" href="?page=<?= $page+1 ?>">
                     <i class="fas fa-chevron-right"></i>
@@ -102,4 +106,6 @@ $stmt = $pdo->query($sql);
     </table>
   </div>
 </div>
+
+
 <?php require __DIR__ . '/__html_footer.php' ?>

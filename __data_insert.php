@@ -14,8 +14,12 @@ $page_title = '新增資料';
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        <!-- action要連到要新增的那隻api，方法要用post，裡面都要有name才取的到 -->
-                        <form action="__data_insert_api.php" method="post">
+                    <h5 class="card-title">新增資料</h5>
+                        <!-- action要連到要新增的那隻api，方法要用post，裡面都要有name才取的到 
+                                傳統方法需要跳轉頁面-->
+                        <!-- <form action="__data_insert_api.php" method="post"> -->
+                         <!-- 不用跳轉頁面，使用Ajax方法 -->
+                        <form name="form1" onsubmit="return checkForm()">
                             <div class="form-group">
                                 <label for="name">姓名</label>
                                 <input type="text" class="form-control" id="name" name="name">
@@ -44,9 +48,27 @@ $page_title = '新增資料';
                 </div>
             </div>
         </div>
-
-
-
     </div>
+    <script>
+        function checkForm(){
+            //TODO: 檢查必要欄位，欄位值的格式
+            //FormData是沒有外觀的表單資料
+            let fd = new FormData(document.form1);
+
+            fetch('__data_insert_api.php', {
+                method : 'POST',
+                body: fd,
+            })
+                .then(response=>{
+                    return response.text();
+                })
+                .then(txt=>{
+                    alert(txt);
+                })
+            
+            
+            return false;
+        }
+    </script>
 </div>
 <?php require __DIR__ . '/__html_footer.php' ?>
