@@ -73,24 +73,29 @@ $stmt = $pdo->query($sql);
     <table class="table table-striped table-bordered">
       <thead class="thead-dark">
         <tr>
+          <th scope="col"><i class="fas fa-trash-alt"></i></th>
           <th scope="col">#</th>
           <th scope="col">姓名</th>
           <th scope="col">Email</th>
           <th scope="col">手機</th>
           <th scope="col">生日</th>
           <th scope="col">地址</th>
+          <th scope="col"><i class="fas fa-edit"></i></th>
         </tr>
       </thead>
       <tbody>
         <?php while ($r = $stmt->fetch()) { ?>
         <tr>
+        <td><a href="javascript:delete_one(<?= $r['sid'] ?>)"><i class="fas fa-trash-alt"></i></a>
+                </td>
           <!-- 加入htmlentities()會使用跳脫字元，避免讓使用者下script語法-->
-          <td><?= htmlentities($r['sid']) ?></td>
+          <td><?= $r['sid'] ?></td>
           <td><?= htmlentities($r['name']) ?></td>
           <td><?= htmlentities($r['email']) ?></td>
           <td><?= htmlentities($r['mobile']) ?></td>
           <td><?= htmlentities($r['birthday']) ?></td>
           <td><?= htmlentities($r['address']) ?></td>
+          <td><a href=""><i class="fas fa-edit"></i></a>
         </tr>
         <?php } ?>
         <?php /*
@@ -107,6 +112,14 @@ $stmt = $pdo->query($sql);
       </tbody>
     </table>
   </div>
+  <script>
+    function delete_one(sid){
+      if(confirm(`確定要刪除編號為 ${sid} 的資料嗎?`)){
+        location.href = '__data_delete.php?sid=' +sid;
+      }
+    }
+  
+  </script>
 </div>
 
 
