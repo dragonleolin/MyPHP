@@ -29,14 +29,15 @@ $stmt = $pdo->query($sql);
 
 #?是要填入的值，為了避免隱碼攻擊;NOW()會帶入系統時間
 $sql = "INSERT INTO `address_book`(
-    `name`, `mobile`, `birthday`, `address`, `created_at`
-    ) VALUES (?, ?, ?, ?, NOW())";
+    `name`, `email`, `mobile`, `birthday`, `address`, `created_at`
+    ) VALUES (?, ?, ?, ?, ?, NOW())";
 
 $stmt = $pdo->prepare($sql);
 
 #execute裡面的陣列順序要跟上面sql的順序一樣
 $stmt -> execute([
     $_POST['name'],
+    $_POST['email'],
     $_POST['mobile'],
     $_POST['birthday'],
     $_POST['address'],

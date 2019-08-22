@@ -75,6 +75,7 @@ $stmt = $pdo->query($sql);
         <tr>
           <th scope="col">#</th>
           <th scope="col">姓名</th>
+          <th scope="col">Email</th>
           <th scope="col">手機</th>
           <th scope="col">生日</th>
           <th scope="col">地址</th>
@@ -86,6 +87,7 @@ $stmt = $pdo->query($sql);
           <!-- 加入htmlentities()會使用跳脫字元，避免讓使用者下script語法-->
           <td><?= htmlentities($r['sid']) ?></td>
           <td><?= htmlentities($r['name']) ?></td>
+          <td><?= htmlentities($r['email']) ?></td>
           <td><?= htmlentities($r['mobile']) ?></td>
           <td><?= htmlentities($r['birthday']) ?></td>
           <td><?= htmlentities($r['address']) ?></td>
