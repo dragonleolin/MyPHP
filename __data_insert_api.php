@@ -1,9 +1,15 @@
 <?php
 require __DIR__ . '/__connect_db.php';
 
+$result = [
+    'success'=> false,
+    'code' => 400,
+    'info' => '沒有輸入姓名',
+];
 
 #empty判斷是否為空，若沒有輸入會直接離開。 !isset()判斷是否有回傳值，若沒有輸入會返回空字串，一樣會是可以執行
 if(empty($_POST['name'])){
+    echo json_encode($result, JSON_UNESCAPED_UNICODE);
     exit;
 }
 
