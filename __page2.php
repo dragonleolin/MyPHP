@@ -1,4 +1,8 @@
 <?php
+
+if(! isset($_SESSION)){
+    session_start();
+}
 $page_name = 'page2';
 
 ?>
