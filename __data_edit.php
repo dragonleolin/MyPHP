@@ -3,15 +3,15 @@ require __DIR__ . '/__connect_db.php';
 $page_name = 'data_edit';
 $page_title = '編輯資料';
 
-$sid = isset($_GET['sid'])? intval($_GET['sid']) : 0;
-if(empty($sid)){
+$sid = isset($_GET['sid']) ? intval($_GET['sid']) : 0;
+if (empty($sid)) {
     header('Location: __data_list.php');
     exit;
 }
 
 $sql = "SELECT * FROM `address_book` WHERE `sid`=$sid";
 $row = $pdo->query($sql)->fetch();
-if(empty($row)){
+if (empty($row)) {
     header('Location: __data_list.php');
     exit;
 }
@@ -37,12 +37,8 @@ if(empty($row)){
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">編輯資料</h5>
-                        <input type="hidden" name="sid" value="<?php $row['sid'] ?>">
-                        <!-- action要連到要新增的那隻api，方法要用post，裡面都要有name才取的到 
-                                傳統方法需要跳轉頁面-->
-                        <!-- <form action="__data_insert_api.php" method="post"> -->
-                        <!-- 不用跳轉頁面，使用Ajax方法 -->
                         <form name="form1" onsubmit="return checkForm()">
+                            <input type="hidden" name="sid" value="<?= $row['sid'] ?>">
                             <div class="form-group">
                                 <label for="name">姓名</label>
                                 <input type="text" class="form-control" id="name" name="name" value="<?= htmlentities($row['name']) ?>">
@@ -87,51 +83,50 @@ if(empty($row)){
         // let mobile = document.querySelector('#mobile');
         // let mobilePattern = /09\d{8}/; //正規表示法的驗證
         //方法二
-        const require_fields =[
-            {
-            id: 'name',
-            pattern: /^\S{2,}/,
-            info: '請填寫正確姓名',
+        const require_fields = [{
+                id: 'name',
+                pattern: /^\S{2,}/,
+                info: '請填寫正確姓名',
             },
             {
-            id: 'email',
-            pattern: /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
-            info: '請填寫正確的 email 格式',
+                id: 'email',
+                pattern: /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
+                info: '請填寫正確的 email 格式',
             },
             {
-            id: 'mobile',
-            pattern: /^09\d{2}\-?\d{3}\-?\d{3}$/,
-            info: '請填寫正確的手機號碼格式',
+                id: 'mobile',
+                pattern: /^09\d{2}\-?\d{3}\-?\d{3}$/,
+                info: '請填寫正確的手機號碼格式',
             },
-        
+
         ];
 
         // 拿到對應的 input element (el), 顯示訊息的 small element (infoEl)
         //方法二    
-        for(s in require_fields){
+        for (s in require_fields) {
             item = require_fields[s];
             item.el = document.querySelector('#' + item.id);
-            item.infoEl = document.querySelector('#' + item.id +'Help');
+            item.infoEl = document.querySelector('#' + item.id + 'Help');
         }
 
         function checkForm() {
             // TODO: 先讓所有欄位外觀回復到原本的狀態
             //方法二
-            for(s in require_fields){
+            for (s in require_fields) {
                 item = require_fields[s];
                 item.el.style.border = '1px solid #CCCCCC';
                 item.infoEl.innerHTML = '';
             }
             info_bar.style.display = 'none';
             info_bar.innerHTML = '';
-            
+
             //TODO: 檢查必要欄位，欄位值的格式
             let isPass = true;
             //方法二
-            for (s in require_fields){
+            for (s in require_fields) {
                 item = require_fields[s];
 
-                if(! item.pattern.test(item.el.value)){
+                if (!item.pattern.test(item.el.value)) {
                     item.el.style.border = '1px solid red';
                     item.infoEl.innerHTML = item.info;
                     isPass = false;
@@ -150,30 +145,31 @@ if(empty($row)){
             //     isPass = false;
             // }
 
-            
+
             //FormData是沒有外觀的表單資料
             let fd = new FormData(document.form1);
-            
-            if(isPass){ 
-            fetch('__data_insert_api.php', {
-                    method: 'POST',
-                    body: fd,
-                })
-                .then(response => {
-                    return response.json();
-                })
-                .then(json => {
-                    console.log(json);
-                    info_bar.style.display = 'block';
-                    info_bar.innerHTML = json.info;
-                    if (json.success) {
-                        info_bar_className = 'alert alert-success';
-                    } else {
-                        info_bar.className = 'alert alert-danger';
+
+            if (isPass) {
+                fetch('__data_edit_api.php', {
+                        method: 'POST',
+                        body: fd,
+                    })
+                    .then(response => {
+                        return response.json();
+                    })
+                    .then(json => {
+                        console.log(json);
+                        submit_btn.style.display = 'block';
+                        info_bar.style.display = 'block';
+                        info_bar.innerHTML = json.info;
+                        if (json.success) {
+                            info_bar_className = 'alert alert-success';
+                        } else {
+                            info_bar.className = 'alert alert-danger';
                         }
                     });
-                }else{
-                    submit_btn.style.display = 'block';
+            } else {
+                submit_btn.style.display = 'block';
             }
             return false; //表單不使用傳統的post送出
         };
