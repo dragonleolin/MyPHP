@@ -19,6 +19,9 @@
                 <li class="nav-item  <?= $page_name=='data_list' ? 'active' : '' ?>">
                     <a class="nav-link" href="__data_list.php">DATALIST</a>
                 </li>
+                <li class="nav-item  <?= $page_name=='data_list2' ? 'active' : '' ?>">
+                    <a class="nav-link" href="__data_list2.php">DATALIST2 (Ajax)</a>
+                </li>
                 <li class="nav-item  <?= $page_name=='data_insert' ? 'active' : '' ?>">
                     <a class="nav-link" href="__data_insert.php">新增資料</a>
                 </li>

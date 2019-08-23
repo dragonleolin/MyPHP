@@ -95,7 +95,7 @@ $stmt = $pdo->query($sql);
           <td><?= htmlentities($r['mobile']) ?></td>
           <td><?= htmlentities($r['birthday']) ?></td>
           <td><?= htmlentities($r['address']) ?></td>
-          <td><a href=""><i class="fas fa-edit"></i></a>
+          <td><a href="__data_edit.php?sid=<?= $r['sid'] ?>"><i class="fas fa-edit"></i></a>
         </tr>
         <?php } ?>
         <?php /*

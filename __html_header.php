@@ -9,5 +9,6 @@
     <link rel="stylesheet" href="fontawesome/css/all.css">
     <script src="lib/jquery-3.4.1.min.js"></script>
     <script src="lib/js/bootstrap.js"></script>
+    <script src="lib/lodash.js"></script>
 </head>
 <body>
