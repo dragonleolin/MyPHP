@@ -1,8 +1,7 @@
 <?php
-require __DIR__. '/__admin_required.php';
 require __DIR__ . '/__connect_db.php';
-$page_name = 'data_insert';
-$page_title = '新增資料';
+$page_name = 'login';
+$page_title = '登入';
 
 
 ?>
@@ -25,40 +24,23 @@ $page_title = '新增資料';
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">新增資料</h5>
+                        <h5 class="card-title">登入</h5>
                         <!-- action要連到要新增的那隻api，方法要用post，裡面都要有name才取的到 
                                 傳統方法需要跳轉頁面-->
                         <!-- <form action="__data_insert_api.php" method="post"> -->
                         <!-- 不用跳轉頁面，使用Ajax方法 -->
                         <form name="form1" onsubmit="return checkForm()">
                             <div class="form-group">
-                                <label for="name">姓名</label>
-                                <input type="text" class="form-control" id="name" name="name">
-                                <small id="nameHelp" class="form-text"></small>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">email</label>
+                                <label for="email">帳號(電子郵件)</label>
                                 <input type="text" class="form-control" id="email" name="email">
                                 <small id="emailHelp" class="form-text"></small>
                             </div>
                             <div class="form-group">
-                                <label for="mobile">手機</label>
-                                <input type="text" class="form-control" id="mobile" name="mobile">
+                                <label for="password">密碼</label>
+                                <input type="password" class="form-control" id="password" name="password">
                                 <small id="mobileHelp" class="form-text"></small>
                             </div>
-                            <div class="form-group">
-                                <label for="birthday">生日</label>
-                                <input type="text" class="form-control" id="birthday" name="birthday" value="2000-03-03">
-                                <small id="birthdayHelp" class="form-text"></small>
-                            </div>
-                            <div class="form-group">
-                                <label for="address">地址</label>
-                                <input type="text" class="form-control" id="address" name="address">
-                                <small id="addressHelp" class="form-text"></small>
-                            </div>
-
-
-                            <button type="submit" class="btn btn-primary" id="submit_btn">新增</button>
+                            <button type="submit" class="btn btn-primary" id="submit_btn">登入</button>
                         </form>
                     </div>
                 </div>
@@ -77,21 +59,10 @@ $page_title = '新增資料';
         //方法二
         const require_fields =[
             {
-            id: 'name',
-            pattern: /^\S{2,}/,
-            info: '請填寫正確姓名',
-            },
-            {
             id: 'email',
             pattern: /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
             info: '請填寫正確的 email 格式',
             },
-            {
-            id: 'mobile',
-            pattern: /^09\d{2}\-?\d{3}\-?\d{3}$/,
-            info: '請填寫正確的手機號碼格式',
-            },
-        
         ];
 
         // 拿到對應的 input element (el), 顯示訊息的 small element (infoEl)
@@ -143,7 +114,7 @@ $page_title = '新增資料';
             let fd = new FormData(document.form1);
             
             if(isPass){ 
-            fetch('__data_insert_api.php', {
+            fetch('__login_api.php', {
                     method: 'POST',
                     body: fd,
                 })
@@ -156,6 +127,9 @@ $page_title = '新增資料';
                     info_bar.innerHTML = json.info;
                     if (json.success) {
                         info_bar_className = 'alert alert-success';
+                        setTimeout(function(){
+                            location.href = '__index__.php'
+                        }, 1000)
                     } else {
                         info_bar.className = 'alert alert-danger';
                         }
