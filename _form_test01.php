@@ -1,4 +1,4 @@
-<?php 
+<?php
 $data1 = [
     '2' => '蘋果',
     '3' => '鳳梨',
@@ -15,7 +15,7 @@ $data1 = [
     <div>
         <pre>
             <?php
-            if(! empty($_POST))
+            if (!empty($_POST))
                 print_r($_POST);
             ?>
         </pre>
@@ -30,17 +30,44 @@ $data1 = [
             <label class="form-check-label" for="exampleCheck1">Check me out</label>
         </div>
 
-        <?php foreach($data1 as $k=>$v): ?>
-        <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" name="fruits[]"
-                        value="<?= $k ?> " id="fruit-a-<?= $k ?>" >
+        <div class="form-group">
+        <?php foreach ($data1 as $k => $v) : ?>
+        <div class="form-group form-check-inline">
+            <input type="checkbox" class="form-check-input" name="fruits[]" value="<?= $k ?> " id="fruit-a-<?= $k ?>">
             <label class="form-check-label" for="fruit-a-<?= $k ?>"><?= $v ?></label>
-
         </div>
         <?php endforeach ?>
+        </div>
 
+        <div class="form-group">
+        <?php 
+        $i=0;
+        foreach ($data1 as $k => $v) : ?>
+        <div class="form-group form-check-inline">
+            <input type="radio" checked class="form-check-input" name="fruitb" value="<?= $k ?> " id="fruit-b-<?= $k ?>">
+            <label class="form-check-label" for="fruit-b-<?= $k ?>"><?= $v ?></label>
+        </div>
+        <?php 
+        $i++;
+        endforeach ?>
+        </div>
+
+ 
+        <div class="form-group">
+            <label for="fruitc">Example select</label>
+            <select class="form-control" id="fruitc" name="fruitc">
+            <!--    <option value="">--請選擇--</option>  -->
+                <?php foreach($data1 as $k=>$v): ?>
+                <option value="<?= $k ?>"><?= $v ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+
+        <div class="form-group">
         <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+        </div>
+</div>
+</form>
 
 </div>
 
