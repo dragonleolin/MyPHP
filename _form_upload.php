@@ -39,10 +39,13 @@ if(!empty($_FILES['my_file'])){ //有沒有上傳
     
     <form name="form1" method="post" enctype="multipart/form-data">
         <div class="form-group">
-            <label for="my_file">選擇上傳的圖檔</label>
-            <input type="file" class="form-control-file" id="my_file" name="my_file">
+            <!-- <label for="my_file">選擇上傳的圖檔</label> -->
+            <input type="file" class="form-control-file" id="my_file" name="my_file" style="display: none">
         </div>
 
+        <div class="form-group">
+            <button type="button" class="btn btn-info" onclick="selUpload()">選擇上傳的圖檔</button>
+        </div>
 
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -51,6 +54,13 @@ if(!empty($_FILES['my_file'])){ //有沒有上傳
 
 </div>
 
+<script>
+ function selUpload(){
+     //triggle
+     document.querySelector('#my_file').click();
+ }
+
+</script>
 
 
 <?php include __DIR__ . '/__html_footer.php' ?>
