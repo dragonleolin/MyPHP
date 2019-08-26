@@ -1,7 +1,7 @@
 <?php
 
 $db_host = 'localhost';
-$db_name = 'my_test';
+$db_name = 'proj54';
 $db_user = 'root';
 $db_pass = 'root';
 
