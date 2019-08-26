@@ -6,6 +6,9 @@ $data1 = [
     '9' => '楊桃',
 ];
 
+$fruit_a = empty($_POST['fruita']) ? [] : $_POST['fruita'];
+$fruit_b = empty($_POST['fruitb']) ? 0 : intval($_POST['fruitb']);
+$fruit_c = empty($_POST['fruitc']) ? 0 : intval($_POST['fruitc']);
 
 ?>
 
@@ -33,7 +36,10 @@ $data1 = [
         <div class="form-group">
         <?php foreach ($data1 as $k => $v) : ?>
         <div class="form-group form-check-inline">
-            <input type="checkbox" class="form-check-input" name="fruits[]" value="<?= $k ?> " id="fruit-a-<?= $k ?>">
+            <input type="checkbox" class="form-check-input" name="fruits[]" 
+                   value="<?= $k ?> " id="fruit-a-<?= $k ?>"
+                   <?= in_array($k, $fruit_a) ? 'checked' : '' ?> 
+                >
             <label class="form-check-label" for="fruit-a-<?= $k ?>"><?= $v ?></label>
         </div>
         <?php endforeach ?>
@@ -44,7 +50,9 @@ $data1 = [
         $i=0;
         foreach ($data1 as $k => $v) : ?>
         <div class="form-group form-check-inline">
-            <input type="radio" checked class="form-check-input" name="fruitb" value="<?= $k ?> " id="fruit-b-<?= $k ?>">
+            <input type="radio" checked class="form-check-input" name="fruitb"
+                value="<?= $k ?> " id="fruit-b-<?= $k ?>"
+                <?= $fruit_b==$k ? 'checked' : '' ?> >
             <label class="form-check-label" for="fruit-b-<?= $k ?>"><?= $v ?></label>
         </div>
         <?php 
@@ -58,7 +66,7 @@ $data1 = [
             <select class="form-control" id="fruitc" name="fruitc">
             <!--    <option value="">--請選擇--</option>  -->
                 <?php foreach($data1 as $k=>$v): ?>
-                <option value="<?= $k ?>"><?= $v ?></option>
+                <option value="<?= $k ?>" <?= $fruit_c==$k ? 'selected' : '' ?> ><?= $v ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
